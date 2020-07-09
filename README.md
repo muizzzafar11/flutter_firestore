@@ -1,16 +1,10 @@
 # FireStore_GoogleAuth
 
-A new Flutter project.
+The front end of the porject is in flutter and the backend is in firebase firestore. 
+It uses google authentication for signing in the user and sends or receives data from firestore with the use of buttons.
 
-## Getting Started
+## Resources
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Flutter: Implementing Google Sign In](https://medium.com/flutter-community/flutter-implementing-google-sign-in-71888bca24ed)
+- [How To Use Cloud Firestore in Flutter](https://medium.com/firebase-tips-tricks/how-to-use-cloud-firestore-in-flutter-9ea80593ca40)
+- [Flutter Firebase Google SignIn + Firestore](https://fireship.io/lessons/flutter-firebase-google-oauth-firestore/)
