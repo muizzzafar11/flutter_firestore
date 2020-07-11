@@ -14,8 +14,35 @@ class _MainScreen extends State<MainScreen> {
       body: Container(
         height: size.height,
         width: size.width,
-        child: Center(
-          child: OutlineButton(onPressed: () => fireBase.writeDb()),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            // Button 1
+            FloatingActionButton(
+              onPressed: () => fireBase.writeDb(),
+              child: Icon(Icons.cloud_upload),
+            ),
+            // Button2
+            FloatingActionButton(
+              onPressed: () => fireBase.modifyDb(),
+              child: Icon(Icons.edit),
+            ),
+            // Button 3
+            FloatingActionButton(
+              onPressed: () => fireBase.deleteDb(),
+              child: Icon(Icons.delete),
+            ),
+            // Button 4
+            FloatingActionButton(
+              onPressed: () => fireBase.writeRandDb(),
+              child: Icon(Icons.send),
+            ),
+            // Button 5
+            FloatingActionButton(
+              onPressed: () => fireBase.readDb(),
+              child: Icon(Icons.cloud_download),
+            ),
+          ],
         ),
       ),
     );

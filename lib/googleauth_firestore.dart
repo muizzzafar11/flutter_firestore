@@ -41,18 +41,49 @@ class GoogleAuthFireStore {
 
   void writeDb() async {
     db.collection("Data").document(currentUser.uid).setData({
-      "Name": "${currentUser.displayName}",
-      "Email:": "${currentUser.email}",
+      "Name:": "${currentUser.displayName}",
+      "Email:": "NoEmail@example.com",
+      "photoURL:": "${currentUser.photoUrl}",
+      "phone Number:": "No Phone Number",
     });
   }
 
-  void modifyDb() async {}
+  void modifyDb() async {
+    db.collection("Data").document(currentUser.uid).updateData({
+      "Name:": "Modified Name",
+      "Email:": "Modified.email@example.com",
+    });
+  }
 
-  void deleteDb() async {}
+  void deleteDb() async {
+    db.collection("Data").document(currentUser.uid).delete();
+  }
 
-  void readDb() async {}
+  void readDb() async {
+    db.collection("Data").getDocuments().then((snapshot) =>
+        snapshot.documents.forEach((result) => print(result.data)));
+  }
 
-  void writeRandDb() async {}
+  void writeRandDb() async {
+    db.collection("Data").add({
+      "name": "john",
+      "age": 50,
+      "email": "example@example.com",
+      "address": {
+        "street": "street 24",
+        "city": "new york",
+      }
+    });
+
+    db.collection("Data").add({
+      "name:": "John",
+      "hobbies:": FieldValue.arrayUnion([
+        "programming",
+        "exercise",
+        "reading",
+      ]),
+    });
+  }
 }
 
 GoogleAuthFireStore fireBase = GoogleAuthFireStore();
