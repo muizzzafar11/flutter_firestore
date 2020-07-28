@@ -6,7 +6,7 @@ class InitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fireBase.signIn(),
+        future: fireBase.dbInit(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return LoginScreen();

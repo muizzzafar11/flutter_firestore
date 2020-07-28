@@ -11,32 +11,40 @@ class GoogleAuthFireStore {
   bool loggedIn = false;
 
   GoogleAuthFireStore() {
-    isLoggedIn();
+    dbInit();
   }
 
-  Future<void> isLoggedIn() async {
-    currentUser = await _auth.currentUser();
-    currentUser != null ? loggedIn = true : loggedIn = false;
+  Future<void> dbInit() async {
+    // loggedIn = await _googleSignin.isSignedIn();
+    // if (loggedIn) {
+    //   currentUser = await _auth.currentUser();
+    // }
+    loggedIn = await _googleSignin.isSignedIn();
+    await _googleSignin.isSignedIn()
+        ? currentUser = await _auth.currentUser()
+        : await signIn();
   }
 
   Future<void> signIn() async {
-    final GoogleSignInAccount _signInAccount = await _googleSignin.signIn();
-    final GoogleSignInAuthentication _signInAuth =
-        await _signInAccount.authentication;
+    if (await _googleSignin.isSignedIn() == false) {
+      final GoogleSignInAccount _signInAccount = await _googleSignin.signIn();
+      final GoogleSignInAuthentication _signInAuth =
+          await _signInAccount.authentication;
 
-    final AuthCredential credentials = GoogleAuthProvider.getCredential(
-        idToken: _signInAuth.idToken, accessToken: _signInAuth.accessToken);
+      final AuthCredential credentials = GoogleAuthProvider.getCredential(
+          idToken: _signInAuth.idToken, accessToken: _signInAuth.accessToken);
 
-    final AuthResult _authResult =
-        await _auth.signInWithCredential(credentials);
-    final FirebaseUser user = _authResult.user;
-    currentUser = await _auth.currentUser();
+      final AuthResult _authResult =
+          await _auth.signInWithCredential(credentials);
+      final FirebaseUser user = _authResult.user;
+      currentUser = await _auth.currentUser();
 
-    assert(user.uid == currentUser.uid);
+      assert(user.uid == currentUser.uid);
 
-    loggedIn = true;
+      loggedIn = true;
 
-    print('Signin With Google Suceeded with user uid: ${user.uid}');
+      print('Signin With Google Suceeded with user uid: ${user.uid}');
+    }
   }
 
   void writeDb() async {
@@ -50,6 +58,7 @@ class GoogleAuthFireStore {
 
   void modifyDb() async {
     db.collection("Data").document(currentUser.uid).updateData({
+      "Online:": loggedIn,
       "Name:": "Modified Name",
       "Email:": "Modified.email@example.com",
     });
